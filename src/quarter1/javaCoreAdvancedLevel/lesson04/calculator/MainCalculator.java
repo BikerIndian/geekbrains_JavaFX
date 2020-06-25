@@ -5,7 +5,7 @@ package quarter1.javaCoreAdvancedLevel.lesson04.calculator;
 	    Факультет:      Geek University Android-разработки
 	    Курс: 		    Java Core. Продвинутый уровень
 	    Урок: 		    Урок 4. Продвинутые вопросы создания графического интерфейса
-	    Дата правки:    24.06.2020
+	    Дата правки:    25.06.2020
     */
 
 import javafx.application.Application;
@@ -22,12 +22,12 @@ public class MainCalculator extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Parent root = FXMLLoader.load(getClass().getResource("calculator.fxml"));
+        primaryStage.setTitle("Калькулятор");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);
