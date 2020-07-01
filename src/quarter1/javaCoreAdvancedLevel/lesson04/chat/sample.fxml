@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="379.0" prefWidth="514.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="quarter1.javaCoreAdvancedLevel.lesson04.chat.Controller">
+
+
+   <Pane layoutX="361.0" layoutY="80.0" prefHeight="189.0" prefWidth="131.0">
+      <children>
+         <ImageView fx:id="friendSmiley" fitHeight="25.0" fitWidth="29.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#clickIco" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@ico/friendSmiley.png" />
+            </image>
+         </ImageView>
+      </children></Pane>
+   <Label layoutX="46.0" layoutY="36.0" text="Ник" />
+   <TextField fx:id="nik" layoutX="89.0" layoutY="32.0" text="Dog" />
+
+   <ScrollPane fx:id="sp" layoutX="48.0" layoutY="82.0" prefHeight="189.0" prefViewportHeight="148.0" prefViewportWidth="139.0" prefWidth="288.0">
+      <content>
+         <TextFlow fx:id="chatText" prefHeight="151.0" prefWidth="217.0" />
+      </content>
+   </ScrollPane>
+   <Pane layoutX="57.0" layoutY="307.0" prefHeight="33.0" prefWidth="256.0">
+      <children>
+         <TextField fx:id="sendText" onAction="#clickBtnSend" prefHeight="25.0" prefWidth="131.0" />
+         <Button layoutX="150.0" mnemonicParsing="false" onAction="#clickBtnSend" text="Отправить" />
+      </children>
+   </Pane>
+
+
+</Pane>
