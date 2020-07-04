@@ -1,6 +1,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox fx:controller="client.Controller"
+<VBox fx:controller="quarter1.javaCoreAdvancedLevel.lesson07.client.Controller"
       xmlns:fx="http://javafx.com/fxml" alignment="center" >
 
     <HBox fx:id="authPanel">
