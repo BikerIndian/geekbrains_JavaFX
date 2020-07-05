@@ -41,13 +41,14 @@ public class ClientHandler {
                                 login = token[1];
                                 server.subscribe(this);
                                 System.out.printf("Клиент %s подключился \n", nick);
+                                server.broadcastMsg("Подключился "+nick);
                                 break;
                             } else {
                                 sendMsg("Неверный логин / пароль");
                             }
                         }
 
-                        server.broadcastMsg(str);
+
                     }
                     //цикл работы
                     while (true) {
@@ -69,6 +70,7 @@ public class ClientHandler {
                     e.printStackTrace();
                 } finally {
                     System.out.println("Клиент отключился");
+                    server.broadcastMsg("Отключился "+nick);
                     server.unsubscribe(this);
                     try {
                         in.close();
