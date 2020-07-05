@@ -1,5 +1,7 @@
 package quarter1.javaCoreAdvancedLevel.lesson07;
 
+import quarter1.javaCoreAdvancedLevel.lesson07.server.Server;
+
 public class MainLesson07 {
 
     /*
@@ -7,10 +9,13 @@ public class MainLesson07 {
         Факультет:      Geek University Android-разработки
         Курс: 		    Java Core. Продвинутый уровень
         Урок: 		    Урок 7. Написание сетевого чата. Часть I
-        Дата правки:    04.07.2020
+        Дата правки:    05.07.2020
     */
 
-    /*
+
+    public static void main(String[] args) {
+
+     /*
            Задание.
 
         1. Разобраться с кодом.
@@ -18,4 +23,7 @@ public class MainLesson07 {
            «/w nick3 Привет», то только клиенту с ником nick3 должно
            прийти сообщение «Привет».
     */
+
+        new Server();
+    }
 }

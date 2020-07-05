@@ -61,6 +61,8 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Config config = new Config();
+        loginField.setText(config.getLogin());
         Platform.runLater(() -> {
             stage = (Stage) textField.getScene().getWindow();
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -166,4 +168,5 @@ public class Controller implements Initializable {
             stage.setTitle(CHAT_TITLE_EMPTY + " : " + nick);
         });
     }
+
 }

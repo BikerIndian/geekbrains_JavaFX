@@ -59,4 +59,20 @@ public class Server {
         clients.remove(clientHandler);
     }
 
+    public boolean isNick(String nick) {
+        for (ClientHandler client : clients) {
+            if (client.getNick().equals(nick)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void sendMegNick(String nickIn,String nickOut, String mesg) {
+        for (ClientHandler client : clients) {
+            if (client.getNick().equals(nickOut)){
+                client.sendMsg("(private) "+nickIn +": "+mesg);
+            }
+        }
+    }
 }

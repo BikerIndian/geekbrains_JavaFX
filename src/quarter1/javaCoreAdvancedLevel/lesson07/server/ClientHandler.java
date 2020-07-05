@@ -58,7 +58,12 @@ public class ClientHandler {
                             break;
                         }
 
-                        server.broadcastMsg(str);
+                        if (str.matches("/w\\s+\\S+\\s+.+")) {
+                            sendMsgToNick(str);
+                        } else {
+                            server.broadcastMsg(this.nick+": "+str);
+                        }
+
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -84,6 +89,20 @@ public class ClientHandler {
             e.printStackTrace();
         }
 
+
+    }
+
+    private void sendMsgToNick(String str) {
+        String[] strArr = str.split("\\s");
+        if (!server.isNick(strArr[1])) {
+            sendMsg("Ника нет: "+strArr[1]);
+            return;
+        }
+
+
+        String msg = str.substring(str.indexOf(strArr[2]));
+        server.sendMegNick(this.nick,strArr[1],msg);
+        sendMsg(this.nick +" -> "+strArr[1] +": "+msg);
 
     }
 

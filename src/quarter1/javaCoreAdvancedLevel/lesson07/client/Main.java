@@ -20,4 +20,11 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    public void run(String login) {
+        Config config = new Config();
+        config.setLogin(login);
+        String [] arg = {};
+        main(arg);
+    }
 }
