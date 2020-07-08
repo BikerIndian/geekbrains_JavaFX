@@ -4,12 +4,15 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 
 public class ClientHandler {
+    String sysMess = ":";
     Server server;
     Socket socket = null;
     DataInputStream in;
     DataOutputStream out;
+    private int timeoutNoAuth = 5000;
 
     private String nick;
     private String login;
@@ -20,10 +23,10 @@ public class ClientHandler {
             this.socket = socket;
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
-
+            sendMsg("Подключился.");
             new Thread(() -> {
                 try {
-//                    socket.setSoTimeout(5000);
+                    socket.setSoTimeout(timeoutNoAuth);
 
                     //цикл аутентификации
                     while (true) {
@@ -68,6 +71,8 @@ public class ClientHandler {
                         }
 
                     }
+
+                    socket.setSoTimeout(0);
                     //цикл работы
                     while (true) {
                         String str = in.readUTF();
@@ -93,11 +98,15 @@ public class ClientHandler {
                     }
                 }
                 ///
+                catch (SocketTimeoutException eSocket) {
+                    sysMess = "по таймауту: ";
+                    sendMsg("Отключён по таймауту!");
 
+                }
                 catch (IOException e) {
                     e.printStackTrace();
                 } finally {
-                    System.out.println("Клиент отключился");
+                    System.out.println("Клиент отключился "+sysMess+ socket.getRemoteSocketAddress());
                     server.unsubscribe(this);
                     try {
                         in.close();

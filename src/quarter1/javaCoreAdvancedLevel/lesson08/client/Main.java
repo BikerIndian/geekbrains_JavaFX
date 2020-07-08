@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import quarter1.javaCoreAdvancedLevel.lesson07.client.Config;
 
 public class Main extends Application {
 
@@ -19,6 +20,13 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void run(String login) {
+        quarter1.javaCoreAdvancedLevel.lesson07.client.Config config = new Config();
+        config.setLogin(login);
+        String [] arg = {};
+        main(arg);
     }
 
 }

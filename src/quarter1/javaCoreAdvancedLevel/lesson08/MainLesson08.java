@@ -1,6 +1,6 @@
 package quarter1.javaCoreAdvancedLevel.lesson08;
 
-import quarter1.javaCoreAdvancedLevel.lesson07.server.Server;
+import quarter1.javaCoreAdvancedLevel.lesson08.server.Server;
 
 public class MainLesson08 {
 

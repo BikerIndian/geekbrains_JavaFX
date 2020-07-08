@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import quarter1.javaCoreAdvancedLevel.lesson07.client.Config;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -52,6 +53,7 @@ public class Controller implements Initializable {
     private DataOutputStream out;
 
     private boolean authenticated;
+    private boolean disconnect = false;
     private String nick;
 
     private Stage stage;
@@ -75,6 +77,9 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        quarter1.javaCoreAdvancedLevel.lesson07.client.Config config = new Config();
+        loginField.setText(config.getLogin());
+
         Platform.runLater(() -> {
             stage = (Stage) textField.getScene().getWindow();
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -103,12 +108,19 @@ public class Controller implements Initializable {
             socket = new Socket(IP_ADDRESS, PORT);
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
+            disconnect = false;
 
             new Thread(() -> {
                 try {
                     //цикл аутентификации
                     while (true) {
                         String str = in.readUTF();
+
+                        if (str.equals("/end")) {
+                            disconnect = true;
+                            break;
+                        }
+
 
                         if (str.startsWith("/authok ")) {
                             nick = str.split("\\s")[1];
@@ -128,30 +140,11 @@ public class Controller implements Initializable {
                         textArea.appendText(str + "\n");
                     }
 
-
-                    //цикл работы
-                    while (true) {
-                        String str = in.readUTF();
-
-                        if (str.startsWith("/")) {
-                            if (str.equals("/end")) {
-                                setAuthenticated(false);
-                                break;
-                            }
-                            if (str.startsWith("/clientlist ")) {
-                                String[] token = str.split("\\s");
-                                Platform.runLater(() -> {
-                                    clientList.getItems().clear();
-                                    for (int i = 1; i < token.length; i++) {
-                                        clientList.getItems().add(token[i]);
-                                    }
-                                });
-                            }
-
-                        } else {
-                            textArea.appendText(str + "\n");
-                        }
+                    if (!disconnect) {
+                        //цикл работы
+                        workWhile();
                     }
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
@@ -171,6 +164,31 @@ public class Controller implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void workWhile() throws IOException {
+        while (true) {
+            String str = in.readUTF();
+
+            if (str.startsWith("/")) {
+                if (str.equals("/end")) {
+                    setAuthenticated(false);
+                    break;
+                }
+                if (str.startsWith("/clientlist ")) {
+                    String[] token = str.split("\\s");
+                    Platform.runLater(() -> {
+                        clientList.getItems().clear();
+                        for (int i = 1; i < token.length; i++) {
+                            clientList.getItems().add(token[i]);
+                        }
+                    });
+                }
+
+            } else {
+                textArea.appendText(str + "\n");
+            }
         }
     }
 
